@@ -1,5 +1,8 @@
+from mastodon import Mastodon
 from flask import Flask
 import requests
+import re
+import os
 
 app = Flask(__name__)
 
@@ -18,6 +21,16 @@ def followers(username):
 @app.route('/users/<username>/following.json')
 def following(username):
     return requests.get(f"https://{username.split('@')[2]}/users/{username.split('@')[1]}/following.json").json()
+
+@app.route('/search/<instance>/<key>')
+def search(instance,key):
+    data = []
+    try:
+        for account in Mastodon(access_token=os.getenv('MASTODON_KEY'),api_base_url='https://mastodon.social').account_search(key):
+            if not re.sub(r"https:\/\/([\w\.]+)\/@(\w+)", r"@\2@\1", account['url']) == account['url']:
+                data.append({"username":account['username'],"email":'activitypub:::'+re.sub(r"https:\/\/([\w\.]+)\/@(\w+)", r"@\2@\1", account['url']),"status":'',"biography":'',"tokens":0,"badges":[],"plus":False})
+    except: pass
+    return {'results':data}
 
 @app.route('/docs')
 def docs():
