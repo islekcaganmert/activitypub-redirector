@@ -6,6 +6,26 @@ import os
 
 app = Flask(__name__)
 
+@app.route('/user/<username>.json')
+def instance_user(username):
+    return requests.get(f"https://{username.split('@')[2]}/user/{username.split('@')[1]}.json").json()
+
+@app.route('/post/<id>.json')
+def instance_post(id):
+    return requests.get(f"https://{id.split('@')[2]}//{id.split('@')[1]}.json").json()
+
+@app.route('/search/<key>.json')
+def instance_search(key):
+    return requests.get(f"https://{key.split('@')[2]}//{key.split('@')[1]}.json").json()
+
+@app.route('/article/<id>.json')
+def instance_article(id):
+    return requests.get(f"https://{id.split('@')[2]}//{id.split('@')[1]}.json").json()
+
+@app.route('/communities/<name>.json')
+def instance_communities(name):
+    return requests.get(f"https://{name.split('@')[2]}//{name.split('@')[1]}.json").json()
+
 @app.route('/users/<username>.json')
 def userpage(username):
     return requests.get(f"https://{username.split('@')[2]}/users/{username.split('@')[1]}.json").json()
