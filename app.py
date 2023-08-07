@@ -14,23 +14,23 @@ def get_aas(domain):
 
 @app.route('/user/<username>.json')
 def instance_user(username):
-    return json.loads(requests.get(f"https://{get_aas(username.split('@')[2])}/user/{username.split('@')[1]}.json").content)
+    return requests.get(f"https://{get_aas(username.split('@')[2])}/user/{username.split('@')[1]}.json").content
 
 @app.route('/post/<id>.json')
 def instance_post(id):
-    return json.loads(requests.get(f"https://{get_aas(id.split('@')[1])}//{id.split('@')[0]}.json"))
+    return requests.get(f"https://{get_aas(id.split('@')[1])}//{id.split('@')[0]}.json").content
 
 @app.route('/search/<key>.json')
 def instance_search(key):
-    return json.loads(requests.get(f"https://{get_aas(key.split('@')[1])}//{key.split('@')[0]}.json"))
+    return requests.get(f"https://{get_aas(key.split('@')[1])}//{key.split('@')[0]}.json").content
 
 @app.route('/article/<id>.json')
 def instance_article(id):
-    return json.loads(requests.get(f"https://{get_aas(id.split('@')[1])}//{id.split('@')[0]}.json"))
+    return requests.get(f"https://{get_aas(id.split('@')[1])}//{id.split('@')[0]}.json").content
 
 @app.route('/communities/<name>.json')
 def instance_communities(name):
-    return json.loads(requests.get(f"https://{get_aas(name.split('@')[1])}//{name.split('@')[0]}.json"))
+    return requests.get(f"https://{get_aas(name.split('@')[1])}//{name.split('@')[0]}.json").content
 
 @app.route('/users/<username>.json')
 def userpage(username):
