@@ -11,4 +11,4 @@ Created for giving ability of basic activitypub connectivity to servers with whi
 `'/users/@username@example.org/following.json' => https://example.org/users/username/following.json`
 
 ### WARNING
-By using official deployment, you are accepting that we do not have any responsibility on your usage...
+By using official deployment, you are accepting that we do not have any responsibility on your usage.
