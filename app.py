@@ -58,9 +58,13 @@ def search(instance,key):
     except: pass
     return {'results':data}
 
-@app.route('/.well-known/nodeinfo/2.0/<instance>.json')
+@app.route('/.well-known/nodeinfo/<instance>.json')
 def nodeinfo(instance):
     return requests.get(f"https://{instance}/.well-known/nodeinfo/2.0.json").json()
+
+@app.route('/nodeinfo/2.0/<instance>.json')
+def nodeinfo2(instance):
+    return requests.get(f"https://{instance}/nodeinfo/2.0.json").json()
 
 @app.route('/docs')
 def docs():
