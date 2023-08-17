@@ -58,6 +58,16 @@ def search(instance,key):
     except: pass
     return {'results':data}
 
+@app.route('/mastodon/status/<username>')
+def mastodon_status(c):
+    data = []
+    try:
+        mastodon_account = Mastodon(access_token=os.getenv('MASTODON_KEY'),api_base_url='https://mastodon.social').account_search(username)
+        if mastodon_account[0]['username'] == re.sub(r"https:\/\/([\w\.]+)\/@(\w+)", r"@\2@\1", account['url']):
+            return {'results':Mastodon(access_token=os.getenv('MASTODON_KEY'),api_base_url='https://mastodon.social').account_statuses(mastodon_account[0]['id'])}
+        else: return {'results':[]}
+    except: return {'results':[]}
+
 @app.route('/.well-known/nodeinfo/<instance>.json')
 def nodeinfo(instance):
     return requests.get(f"https://{instance}/.well-known/nodeinfo/2.0.json").json()
