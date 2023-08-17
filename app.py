@@ -59,7 +59,7 @@ def search(instance,key):
     return {'results':data}
 
 @app.route('/mastodon/status/<username>')
-def mastodon_status(c):
+def mastodon_status(username):
     data = []
     try:
         mastodon_account = Mastodon(access_token=os.getenv('MASTODON_KEY'),api_base_url='https://mastodon.social').account_search(username)
