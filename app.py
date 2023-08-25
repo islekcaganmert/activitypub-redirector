@@ -76,6 +76,10 @@ def nodeinfo(instance):
 def nodeinfo2(instance):
     return requests.get(f"https://{instance}/nodeinfo/2.0.json").json()
 
+@app.route('/other_ends/<id>')
+def other_ends(id):
+    return requests.get(id.replace('\\','/')).json()
+
 @app.route('/docs')
 def docs():
     return '''
