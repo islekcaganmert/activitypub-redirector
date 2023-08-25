@@ -78,7 +78,7 @@ def nodeinfo2(instance):
 
 @app.route('/other_ends/<id>')
 def other_ends(id):
-    return requests.get(id.replace('\\','/')).json()
+    return requests.get(id.replace('%5C','/')).json()
 
 @app.route('/docs')
 def docs():
