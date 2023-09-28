@@ -1,5 +1,5 @@
 from mastodon import Mastodon
-from flask import Flask
+from flask import Flask, request
 import requests
 import json
 import re
@@ -76,9 +76,14 @@ def nodeinfo(instance):
 def nodeinfo2(instance):
     return requests.get(f"https://{instance}/nodeinfo/2.0.json").json()
 
-@app.route('/other_ends/<id>')
+@app.route('/other_ends/<id>', methods=['GET','POST'])
 def other_ends(id):
-    return requests.get(id.replace('%5C','/')).json()
+    if request.method == 'GET':
+        return requests.get(id.replace('%5C','/')).json()
+    elif request.method == 'POST':
+        return requests.post(id.replace('%5C','/'), data=request.form).json()
+    else:
+        return 500
 
 @app.route('/docs')
 def docs():
