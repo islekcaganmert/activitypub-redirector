@@ -79,11 +79,15 @@ def nodeinfo2(instance):
 @app.route('/other_ends/<id>', methods=['GET','POST'])
 def other_ends(id):
     if request.method == 'GET':
-        return requests.get(id.replace('%5C','/')).json()
+        r = requests.get(id.replace('%5C','/'))
     elif request.method == 'POST':
-        return requests.post(id.replace('%5C','/'), data=request.form).json()
+        r = requests.post(id.replace('%5C','/'), data=request.form)
     else:
         return 500
+    try:
+        return r.json()
+    except:
+        return r.content
 
 @app.route('/docs')
 def docs():
