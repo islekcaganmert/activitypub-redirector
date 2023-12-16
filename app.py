@@ -15,7 +15,11 @@ def get_aas(domain):
 @app.route('/user/<username>.json')
 def instance_user(username):
     webfinger = json.loads(requests.get(f"https://{get_aas(username.split('@')[2])}/.well-known/webfinger?resource=acct:{username.removeprefix('@')}").content)
-    return json.loads(requests.get(f"https://{get_aas(username.split('@')[2])}/user/{username.split('@')[1]}.json", headers={'Accept': 'application/activity+json'}).content)
+    link = ''
+    for i in webfinger['links']:
+        if i['type'] == 'application/activity+json':
+            link = i['href']
+    return json.loads(requests.get(link).content)
 
 @app.route('/post/<id>.json')
 def instance_post(id):
