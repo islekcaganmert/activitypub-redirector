@@ -19,7 +19,7 @@ def instance_user(username):
     for i in webfinger['links']:
         if i['type'] == 'application/activity+json':
             link = i['href']
-    return json.loads(requests.get(link).content)
+    return requests.get(link).json()
 
 @app.route('/post/<id>.json')
 def instance_post(id):
