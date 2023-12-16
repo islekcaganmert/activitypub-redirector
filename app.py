@@ -14,7 +14,7 @@ def get_aas(domain):
 
 @app.route('/user/<username>.json')
 def instance_user(username):
-    webfinger = json.loads(requests.get(f"https://{get_aas(username.split('@')[2])}/.well-known/webfinger?resource=acct:{username.removeprefix('@')}").content)
+    webfinger = requests.get(f"https://{get_aas(username.split('@')[2])}/.well-known/webfinger?resource=acct:{username.removeprefix('@')}").json()
     link = ''
     for i in webfinger['links']:
         if i['type'] == 'application/activity+json':
