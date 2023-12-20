@@ -94,6 +94,21 @@ def other_ends(id):
     except:
         return r.content
 
+@app.route('/other_ends', methods=['POST'])
+def other_ends_p(id):
+    if [i for i in request.form] == ['URL']:
+        r = requests.get(request.form['URL'])
+    else:
+        d = {}
+        for i i n request.form:
+            if i != 'URL':
+                d.update({i: request.form[i]})
+        r = requests.post(request.form['URL'], data=request.form)
+    try:
+        return r.json()
+    except:
+        return r.content
+
 @app.route('/docs')
 def docs():
     return '''
