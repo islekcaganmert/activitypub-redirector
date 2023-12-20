@@ -100,7 +100,7 @@ def other_ends_p(id):
         r = requests.get(request.form['URL'])
     else:
         d = {}
-        for i i n request.form:
+        for i in request.form:
             if i != 'URL':
                 d.update({i: request.form[i]})
         r = requests.post(request.form['URL'], data=request.form)
