@@ -95,7 +95,7 @@ def other_ends(id):
         return r.content
 
 @app.route('/other_ends', methods=['POST'])
-def other_ends_p(id):
+def other_ends_p():
     if [i for i in request.form] == ['URL']:
         r = requests.get(request.form['URL'])
     else:
