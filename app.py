@@ -84,9 +84,9 @@ def nodeinfo2(instance):
 @app.route('/other_ends/<id>', methods=['GET','POST'])
 def other_ends(id):
     if request.method == 'GET':
-        r = requests.get(id.replace('%5C','/'))
+        r = requests.get(id.replace('%5C','/').replace('\\','/'))
     elif request.method == 'POST':
-        r = requests.post(id.replace('%5C','/'), data=request.form)
+        r = requests.post(id.replace('%5C','/').replace('\\','/'), data=request.form)
     else:
         return 500
     try:
